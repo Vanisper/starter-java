@@ -30,6 +30,7 @@
     <modules>
         <module>packages/core</module>
         <module>packages/web</module>
+        <module>apps/_example</module>
     </modules>
 
 </project>

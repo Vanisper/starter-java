@@ -7,15 +7,20 @@
 ```
 starter-java/
 ├── pom.xml                    # 父 POM，管理整个项目
+├── apps/
+│   ├── _example/              # 业务示例模块
+│   │   ├── pom.xml
+│   │   └── src/main/java/<groupId>/example/
+│   │       └── ...
+│   └── ...
+│
 ├── packages/
 │   ├── core/                  # 核心模块 - 通用功能封装
 │   │   ├── pom.xml
 │   │   └── src/main/java/<groupId>/core/
-│   │       └── Main.java
-│   └── web/                   # Web 模块 - 示例业务模块
-│       ├── pom.xml
-│       └── src/main/java/<groupId>/web/
-│           └── WebService.java
+│   │       └── ...
+│   └── ...
+│
 └── README.md                  # 本文档
 ```
 
@@ -79,7 +84,7 @@ mvn install
 ### 5. 运行示例
 ```bash
 # 运行 core 模块
-mvn exec:java -pl packages/core -Dexec.mainClass="cn.vanisper.core.Main"
+mvn exec:java -pl packages/core -Dexec.mainClass="cn.vanisper.core.Test"
 
 # 运行 web 模块
 mvn exec:java -pl packages/web -Dexec.mainClass="cn.vanisper.web.WebService"
@@ -132,8 +137,8 @@ mkdir -p packages/your-module/src/main/java/<groupId>/yourmodule
 
 ## 最佳实践
 
-1. **版本管理**: 使用 `${project.version}` 确保所有模块版本一致
-2. **依赖管理**: 在父 POM 的 `<dependencyManagement>` 中统一管理依赖版本
+1. **依赖管理**: 在父 POM 的 `<dependencyManagement>` 中统一管理依赖版本
+2. **版本管理**: 使用相关配置变量，确保所有模块版本一致
 3. **包命名**: 遵循反向域名约定，保持与 `groupId` 一致
 4. **模块职责**: 
    - core 模块：通用功能，不应依赖其他业务模块

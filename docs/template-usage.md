@@ -4,10 +4,13 @@
 
 ### 1. 项目定制
 修改根目录 `pom.xml` 中的项目信息：
+
 ```xml
-<groupId>com.yourcompany</groupId>
-<artifactId>your-project-parent</artifactId>
-<version>1.0.0</version>
+<project>
+    <groupId>com.yourcompany</groupId>
+    <artifactId>your-project-parent</artifactId>
+    <version>1.0.0</version>
+</project>
 ```
 
 ### 2. 包名更新
@@ -68,6 +71,6 @@ mvn clean install -DskipTests
 ## 注意事项
 
 1. 确保所有模块的 `groupId` 与父项目一致
-2. 使用 `${project.version}` 保证版本一致性
+2. 使用相关配置变量，保证版本一致性
 3. Core 模块不应依赖其他业务模块
 4. 业务模块可以依赖 Core 模块，但避免循环依赖
