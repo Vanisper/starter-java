@@ -15,22 +15,26 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- 当前为 root-pom, 需要与当前文件的 GAV 一致; 这里的硬编码冗余是有必须的, 防止继承链中变量继承的问题 -->
+        <root.groupId>cn.vanisper</root.groupId>
+        <root.artifactId>starter-java-parent</root.artifactId>
+        <root.version>1.0-SNAPSHOT</root.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>${root.groupId}</groupId>
                 <artifactId>starter-java-core</artifactId>
-                <version>${project.version}</version>
+                <version>${root.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
         <module>packages/core</module>
-        <module>packages/web</module>
-        <module>apps/_example</module>
+        <module>apps</module>
     </modules>
 
 </project>

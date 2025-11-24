@@ -1,8 +1,8 @@
-package cn.vanisper.example;
+package cn.vanisper.apps.example;
 
 import cn.vanisper.core.Test;
 
-public class Example {
+public class Main {
     public static void main(String[] args) {
         System.out.println("[app-example] Hello, i am an app-example!");
 

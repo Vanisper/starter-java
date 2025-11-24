@@ -10,9 +10,9 @@ starter-java/
 ├── apps/
 │   ├── _example/              # 业务示例模块
 │   │   ├── pom.xml
-│   │   └── src/main/java/<groupId>/example/
+│   │   └── src/main/java/<apps-groupId>/example/
 │   │       └── ...
-│   └── ...
+│   └── pom.xml
 │
 ├── packages/
 │   ├── core/                  # 核心模块 - 通用功能封装
@@ -24,24 +24,6 @@ starter-java/
 └── README.md                  # 本文档
 ```
 
-## 模块说明
-
-### Core 模块 (starter-java-core)
-- **作用**: 提供通用的工具类、基础功能和共享组件
-- **包名**: `<groupId>.core`
-- **其他模块如何引用**: 在 POM 中添加依赖
-```xml
-<dependency>
-    <groupId>${project.groupId}</groupId>
-    <artifactId>starter-java-core</artifactId>
-</dependency>
-```
-
-### Web 模块 (starter-java-web)
-- **作用**: 示例业务模块，展示如何引用 core 模块
-- **包名**: `<groupId>.web`
-- **依赖**: 自动引用 core 模块
-
 ## 如何使用此模板
 
 ### 1. 克隆或下载模板
@@ -50,23 +32,7 @@ git clone <template-repo-url>
 cd starter-java
 ```
 
-### 2. 自定义项目信息
-修改根目录下的 `pom.xml` 文件：
-```xml
-<project>
-    <groupId>com.yourcompany</groupId>  <!-- 修改为你的公司或组织标识 -->
-    <artifactId>your-project-parent</artifactId>  <!-- 修改为你的项目名称 -->
-    <version>1.0.0</version>  <!-- 修改为你的项目版本 -->
-</project>
-```
-
-### 3. 更新包名
-如果你修改了 `groupId`，需要相应更新 Java 包名：
-- 将 `cn.vanisper` 替换为你的 `groupId`
-- 更新所有 Java 文件中的 package 声明
-- 重命名相应的目录结构
-
-### 4. 构建项目
+### 2. 构建项目
 ```bash
 # 清理并编译整个项目
 mvn clean compile
@@ -81,16 +47,16 @@ mvn package
 mvn install
 ```
 
-### 5. 运行示例
+### 3. 运行示例
 ```bash
 # 运行 core 模块
-mvn exec:java -pl packages/core -Dexec.mainClass="cn.vanisper.core.Test"
+mvn exec:java -pl packages/core -Dexec.mainClass=cn.vanisper.core.Test
 
-# 运行 web 模块
-mvn exec:java -pl packages/web -Dexec.mainClass="cn.vanisper.web.WebService"
+# 运行示例应用
+mvn exec:java -pl apps/_example -Dexec.mainClass=cn.vanisper.apps.example.Main
 ```
 
-## 添加新模块
+## 添加新公共模块
 
 ### 1. 创建模块目录
 ```bash
@@ -116,9 +82,9 @@ mkdir -p packages/your-module/src/main/java/<groupId>/yourmodule
     <artifactId>starter-java-your-module</artifactId>
 
     <dependencies>
-        <!-- 引用 core 模块（如果需要） -->
+        <!-- 引用其他模块（如果需要，需要注意避免循环引用） -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>${root.groupId}</groupId>
             <artifactId>starter-java-core</artifactId>
         </dependency>
     </dependencies>
@@ -130,19 +96,32 @@ mkdir -p packages/your-module/src/main/java/<groupId>/yourmodule
 ```xml
 <modules>
     <module>packages/core</module>
-    <module>packages/web</module>
     <module>packages/your-module</module>  <!-- 新增 -->
 </modules>
 ```
+
+### 4. 配置公用引用依赖版本
+如果需要将此模块作为当前项目中的公共库，可以选择配置到根 POM 的 dependencyManagement 中：
+```xml
+<dependencyManagement>
+    <dependencies>
+        <!-- TODO: 新增这部分 -->
+        <dependency>
+            <groupId>${root.groupId}</groupId>
+            <artifactId>starter-java-your-module</artifactId>
+            <version>${root.version}</version>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+这样之后只要是继承自当前根 POM 的模块，都可享用此配置，相当于 BOM 的角色。
 
 ## 最佳实践
 
 1. **依赖管理**: 在父 POM 的 `<dependencyManagement>` 中统一管理依赖版本
 2. **版本管理**: 使用相关配置变量，确保所有模块版本一致
 3. **包命名**: 遵循反向域名约定，保持与 `groupId` 一致
-4. **模块职责**: 
-   - core 模块：通用功能，不应依赖其他业务模块
-   - 业务模块：可以依赖 core 模块，避免模块间循环依赖
 
 ## 常见问题
 

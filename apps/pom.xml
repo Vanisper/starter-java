@@ -8,16 +8,17 @@
         <groupId>cn.vanisper</groupId>
         <artifactId>starter-java-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>starter-java-web</artifactId>
+    <groupId>cn.vanisper.apps</groupId>
+    <artifactId>starter-java-apps</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>starter-java-core</artifactId>
-        </dependency>
-    </dependencies>
+    <name>STARTER JAVA APPS ${project.version}</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>_example</module>
+    </modules>
 
 </project>

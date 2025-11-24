@@ -5,17 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cn.vanisper</groupId>
-        <artifactId>starter-java-parent</artifactId>
+        <groupId>cn.vanisper.apps</groupId>
+        <artifactId>starter-java-apps</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>app-example</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>${root.groupId}</groupId>
             <artifactId>starter-java-core</artifactId>
         </dependency>
     </dependencies>
